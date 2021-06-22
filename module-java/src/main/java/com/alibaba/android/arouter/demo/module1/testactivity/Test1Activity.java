@@ -55,11 +55,17 @@ public class Test1Activity extends BaseActivity {
 
     private long high;
 
-    @Autowired
+    @Autowired(required = true)
     String url;
 
     @Autowired
     HelloService helloService;
+
+    @Autowired(name = "yourservicegroupname/hello")
+    HelloService helloService222;
+
+    @Autowired(name = "yourservicegroupname/hello", required = true)
+    HelloService helloService333;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

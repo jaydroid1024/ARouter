@@ -23,14 +23,18 @@ import javax.annotation.processing.ProcessingEnvironment;
 import javax.annotation.processing.Processor;
 import javax.annotation.processing.RoundEnvironment;
 import javax.annotation.processing.SupportedAnnotationTypes;
-import javax.annotation.processing.SupportedOptions;
-import javax.annotation.processing.SupportedSourceVersion;
-import javax.lang.model.SourceVersion;
 import javax.lang.model.element.Element;
 import javax.lang.model.element.TypeElement;
 import javax.lang.model.type.TypeMirror;
 
-import static com.alibaba.android.arouter.compiler.utils.Consts.*;
+import static com.alibaba.android.arouter.compiler.utils.Consts.ANNOTATION_TYPE_INTECEPTOR;
+import static com.alibaba.android.arouter.compiler.utils.Consts.IINTERCEPTOR;
+import static com.alibaba.android.arouter.compiler.utils.Consts.IINTERCEPTOR_GROUP;
+import static com.alibaba.android.arouter.compiler.utils.Consts.METHOD_LOAD_INTO;
+import static com.alibaba.android.arouter.compiler.utils.Consts.NAME_OF_INTERCEPTOR;
+import static com.alibaba.android.arouter.compiler.utils.Consts.PACKAGE_OF_GENERATE_FILE;
+import static com.alibaba.android.arouter.compiler.utils.Consts.SEPARATOR;
+import static com.alibaba.android.arouter.compiler.utils.Consts.WARNING_TIPS;
 import static javax.lang.model.element.Modifier.PUBLIC;
 
 /**
@@ -53,6 +57,9 @@ public class InterceptorProcessor extends BaseProcessor {
         iInterceptor = elementUtils.getTypeElement(Consts.IINTERCEPTOR).asType();
 
         logger.info(">>> InterceptorProcessor init. <<<");
+        //注: ARouter::Compiler >>> InterceptorProcessor， iInterceptor is
+        // com.alibaba.android.arouter.facade.template.IInterceptor. <<<
+        logger.info(">>> InterceptorProcessor， iInterceptor is  " + iInterceptor + ". <<<");
     }
 
     /**
@@ -82,16 +89,20 @@ public class InterceptorProcessor extends BaseProcessor {
      * @param elements elements of tollgate.
      */
     private void parseInterceptors(Set<? extends Element> elements) throws IOException {
+
         if (CollectionUtils.isNotEmpty(elements)) {
             logger.info(">>> Found interceptors, size is " + elements.size() + " <<<");
 
             // Verify and cache, sort incidentally.
+            // 验证和缓存，顺便排序。
             for (Element element : elements) {
+
                 if (verify(element)) {  // Check the interceptor meta
                     logger.info("A interceptor verify over, its " + element.asType());
                     Interceptor interceptor = element.getAnnotation(Interceptor.class);
 
                     Element lastInterceptor = interceptors.get(interceptor.priority());
+
                     if (null != lastInterceptor) { // Added, throw exceptions
                         throw new IllegalArgumentException(
                                 String.format(Locale.getDefault(), "More than one interceptors use same priority [%d], They are [%s] and [%s].",
@@ -111,10 +122,20 @@ public class InterceptorProcessor extends BaseProcessor {
             TypeElement type_ITollgate = elementUtils.getTypeElement(IINTERCEPTOR);
             TypeElement type_ITollgateGroup = elementUtils.getTypeElement(IINTERCEPTOR_GROUP);
 
+            //package com.alibaba.android.arouter.routes;
+            //public class ARouter$$Interceptors$$modulejava implements IInterceptorGroup {
+            //  @Override
+            //  public void loadInto(Map<Integer, Class<? extends IInterceptor>> interceptors) {
+            //    interceptors.put(7, Test1Interceptor.class);
+            //    interceptors.put(90, TestInterceptor90.class);
+            //  }
+            //}
+
+
             /**
              *  Build input type, format as :
              *
-             *  ```Map<Integer, Class<? extends ITollgate>>```
+             *  ```Map<Integer, Class<? extends IInterceptor>>```
              */
             ParameterizedTypeName inputMapTypeOfTollgate = ParameterizedTypeName.get(
                     ClassName.get(Map.class),
@@ -125,10 +146,12 @@ public class InterceptorProcessor extends BaseProcessor {
                     )
             );
 
-            // Build input param name.
+            // Build input param name. Map<Integer, Class<? extends IInterceptor>> interceptors
             ParameterSpec tollgateParamSpec = ParameterSpec.builder(inputMapTypeOfTollgate, "interceptors").build();
 
             // Build method : 'loadInto'
+            //  @Override
+            //  public void loadInto(Map<Integer, Class<? extends IInterceptor>> interceptors) {
             MethodSpec.Builder loadIntoMethodOfTollgateBuilder = MethodSpec.methodBuilder(METHOD_LOAD_INTO)
                     .addAnnotation(Override.class)
                     .addModifiers(PUBLIC)
@@ -138,10 +161,14 @@ public class InterceptorProcessor extends BaseProcessor {
             if (null != interceptors && interceptors.size() > 0) {
                 // Build method body
                 for (Map.Entry<Integer, Element> entry : interceptors.entrySet()) {
+                    //    interceptors.put(7, Test1Interceptor.class);
+                    //    interceptors.put(90, TestInterceptor90.class);
                     loadIntoMethodOfTollgateBuilder.addStatement("interceptors.put(" + entry.getKey() + ", $T.class)", ClassName.get((TypeElement) entry.getValue()));
                 }
             }
 
+            //package com.alibaba.android.arouter.routes;
+            //public class ARouter$$Interceptors$$modulejava implements IInterceptorGroup {
             // Write to disk(Write file even interceptors is empty.)
             JavaFile.builder(PACKAGE_OF_GENERATE_FILE,
                     TypeSpec.classBuilder(NAME_OF_INTERCEPTOR + SEPARATOR + moduleName)

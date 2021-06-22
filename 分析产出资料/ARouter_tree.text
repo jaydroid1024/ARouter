@@ -1,0 +1,288 @@
+ARouter % tree
+.
+├── LICENSE
+├── README.md
+├── README_CN.md
+├── README_EN.md
+├── app
+│   ├── build.gradle
+│   ├── doc
+│   │   └── debug
+│   │       └── debug.keystore
+│   ├── proguard-rules.pro
+│   └── src
+│       └── main
+│           ├── AndroidManifest.xml
+│           ├── assets
+│           │   └── scheme-test.html
+│           ├── java
+│           │   └── com
+│           │       └── alibaba
+│           │           └── android
+│           │               └── arouter
+│           │                   └── demo
+│           │                       ├── MainActivity.java
+│           │                       └── SchemeFilterActivity.java
+│           └── res
+│               ├── anim
+│               │   ├── slide_in_bottom.xml
+│               │   └── slide_out_bottom.xml
+│               ├── drawable
+│               │   ├── bg_test_area.xml
+│               │   └── ic_launcher.png
+│               ├── layout
+│               │   └── activity_main.xml
+│               └── values
+│                   ├── color.xml
+│                   ├── dimens.xml
+│                   └── strings.xml
+├── arouter-annotation
+│   ├── build.gradle
+│   └── src
+│       └── main
+│           └── java
+│               └── com
+│                   └── alibaba
+│                       └── android
+│                           └── arouter
+│                               └── facade
+│                                   ├── annotation
+│                                   │   ├── Autowired.java
+│                                   │   ├── Interceptor.java
+│                                   │   ├── Param.java
+│                                   │   └── Route.java
+│                                   ├── enums
+│                                   │   ├── RouteType.java
+│                                   │   └── TypeKind.java
+│                                   └── model
+│                                       ├── RouteMeta.java
+│                                       └── TypeWrapper.java
+├── arouter-api
+│   ├── build.gradle
+│   └── src
+│       └── main
+│           ├── AndroidManifest.xml
+│           └── java
+│               └── com
+│                   └── alibaba
+│                       └── android
+│                           └── arouter
+│                               ├── base
+│                               │   └── UniqueKeyTreeMap.java
+│                               ├── core
+│                               │   ├── AutowiredLifecycleCallback.java
+│                               │   ├── AutowiredServiceImpl.java
+│                               │   ├── InstrumentationHook.java
+│                               │   ├── InterceptorServiceImpl.java
+│                               │   ├── LogisticsCenter.java
+│                               │   └── Warehouse.java
+│                               ├── exception
+│                               │   ├── HandlerException.java
+│                               │   ├── InitException.java
+│                               │   └── NoRouteFoundException.java
+│                               ├── facade
+│                               │   ├── Postcard.java
+│                               │   ├── callback
+│                               │   │   ├── InterceptorCallback.java
+│                               │   │   ├── NavCallback.java
+│                               │   │   └── NavigationCallback.java
+│                               │   ├── service
+│                               │   │   ├── AutowiredService.java
+│                               │   │   ├── ClassLoaderService.java
+│                               │   │   ├── DegradeService.java
+│                               │   │   ├── InterceptorService.java
+│                               │   │   ├── PathReplaceService.java
+│                               │   │   ├── PretreatmentService.java
+│                               │   │   └── SerializationService.java
+│                               │   └── template
+│                               │       ├── IInterceptor.java
+│                               │       ├── IInterceptorGroup.java
+│                               │       ├── ILogger.java
+│                               │       ├── IPolicy.java
+│                               │       ├── IProvider.java
+│                               │       ├── IProviderGroup.java
+│                               │       ├── IRouteGroup.java
+│                               │       ├── IRouteRoot.java
+│                               │       └── ISyringe.java
+│                               ├── launcher
+│                               │   ├── ARouter.java
+│                               │   └── _ARouter.java
+│                               ├── thread
+│                               │   ├── CancelableCountDownLatch.java
+│                               │   ├── DefaultPoolExecutor.java
+│                               │   └── DefaultThreadFactory.java
+│                               └── utils
+│                                   ├── ClassUtils.java
+│                                   ├── Consts.java
+│                                   ├── DefaultLogger.java
+│                                   ├── MapUtils.java
+│                                   ├── PackageUtils.java
+│                                   └── TextUtils.java
+├── arouter-compiler
+│   ├── build.gradle
+│   └── src
+│       └── main
+│           ├── java
+│           │   └── com
+│           │       └── alibaba
+│           │           └── android
+│           │               └── arouter
+│           │                   └── compiler
+│           │                       ├── entity
+│           │                       │   └── RouteDoc.java
+│           │                       ├── processor
+│           │                       │   ├── AutowiredProcessor.java
+│           │                       │   ├── BaseProcessor.java
+│           │                       │   ├── InterceptorProcessor.java
+│           │                       │   └── RouteProcessor.java
+│           │                       └── utils
+│           │                           ├── Consts.java
+│           │                           ├── Logger.java
+│           │                           └── TypeUtils.java
+│           └── resources
+│               └── META-INF
+│                   └── gradle
+│                       └── incremental.annotation.processors
+├── arouter-gradle-plugin
+│   ├── build.gradle
+│   └── src
+│       └── main
+│           ├── groovy
+│           │   └── com
+│           │       └── alibaba
+│           │           └── android
+│           │               └── arouter
+│           │                   └── register
+│           │                       ├── core
+│           │                       │   ├── RegisterCodeGenerator.groovy
+│           │                       │   └── RegisterTransform.groovy
+│           │                       ├── launch
+│           │                       │   └── PluginLaunch.groovy
+│           │                       └── utils
+│           │                           ├── Logger.groovy
+│           │                           ├── ScanSetting.groovy
+│           │                           └── ScanUtil.groovy
+│           └── resources
+│               └── META-INF
+│                   └── gradle-plugins
+│                       └── com.alibaba.arouter.properties
+├── arouter-idea-plugin
+│   ├── build.gradle
+│   └── src
+│       └── main
+│           ├── kotlin
+│           │   └── com
+│           │       └── alibaba
+│           │           └── android
+│           │               └── arouter
+│           │                   └── idea
+│           │                       └── extensions
+│           │                           └── NavigationLineMarker.kt
+│           └── resources
+│               ├── META-INF
+│               │   └── plugin.xml
+│               └── icon
+│                   └── outline_my_location_black_18dp.png
+├── bintray.gradle
+├── build.gradle
+├── demo
+│   ├── arouter-demo-1.5.2.apk
+│   ├── arouter-demo.apk
+│   ├── arouter-demo.gif
+│   ├── arouter-demo.mp4
+│   ├── dingding-group-1.png
+│   ├── qq-group-1.png
+│   └── qq-group-2.png
+├── gradle
+│   └── wrapper
+│       ├── gradle-wrapper.jar
+│       └── gradle-wrapper.properties
+├── gradle.properties
+├── gradlew
+├── gradlew.bat
+├── install.gradle
+├── local.properties
+├── module-java
+│   ├── build.gradle
+│   └── src
+│       └── main
+│           ├── AndroidManifest.xml
+│           ├── java
+│           │   └── com
+│           │       └── alibaba
+│           │           └── android
+│           │               └── arouter
+│           │                   └── demo
+│           │                       └── module1
+│           │                           ├── BlankFragment.java
+│           │                           ├── MainLooper.java
+│           │                           ├── TestInterceptor90.java
+│           │                           ├── TestModule2Activity.java
+│           │                           ├── TestModuleActivity.java
+│           │                           ├── TestWebview.java
+│           │                           ├── testactivity
+│           │                           │   ├── BaseActivity.java
+│           │                           │   ├── Test1Activity.java
+│           │                           │   ├── Test2Activity.java
+│           │                           │   ├── Test3Activity.java
+│           │                           │   ├── Test4Activity.java
+│           │                           │   └── TestDynamicActivity.java
+│           │                           ├── testinterceptor
+│           │                           │   └── Test1Interceptor.java
+│           │                           └── testservice
+│           │                               ├── HelloServiceImpl.java
+│           │                               ├── JsonServiceImpl.java
+│           │                               └── SingleService.java
+│           └── res
+│               ├── layout
+│               │   ├── activity_test1.xml
+│               │   ├── activity_test2.xml
+│               │   ├── activity_test4.xml
+│               │   ├── activity_test_module.xml
+│               │   ├── activity_test_module2.xml
+│               │   └── activity_test_webview.xml
+│               └── values
+│                   ├── dimens.xml
+│                   └── strings.xml
+├── module-java-export
+│   ├── build.gradle
+│   └── src
+│       └── main
+│           ├── AndroidManifest.xml
+│           └── java
+│               └── com
+│                   └── alibaba
+│                       └── android
+│                           └── arouter
+│                               └── demo
+│                                   └── service
+│                                       ├── Entrance.java
+│                                       ├── HelloService.java
+│                                       └── model
+│                                           ├── TestObj.java
+│                                           ├── TestParcelable.java
+│                                           └── TestSerializable.java
+├── module-kotlin
+│   ├── build.gradle
+│   └── src
+│       └── main
+│           ├── AndroidManifest.xml
+│           ├── java
+│           │   └── com
+│           │       └── alibaba
+│           │           └── android
+│           │               └── arouter
+│           │                   └── demo
+│           │                       └── kotlin
+│           │                           ├── KotlinTestActivity.kt
+│           │                           └── TestNormalActivity.java
+│           └── res
+│               ├── layout
+│               │   ├── activity_kotlin_test.xml
+│               │   └── activity_test_normal.xml
+│               └── values
+│                   ├── dimens.xml
+│                   └── strings.xml
+└── settings.gradle
+
+133 directories, 151 files

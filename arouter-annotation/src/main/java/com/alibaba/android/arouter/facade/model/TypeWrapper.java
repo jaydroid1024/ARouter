@@ -11,6 +11,7 @@ import java.lang.reflect.Type;
  * @since 17/10/26 11:56:22
  */
 public class TypeWrapper<T> {
+
     protected final Type type;
 
     protected TypeWrapper() {

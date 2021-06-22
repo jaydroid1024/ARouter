@@ -12,6 +12,7 @@ class KotlinTestActivity : Activity() {
 
     @Autowired
     @JvmField var name: String? = null
+
     @Autowired
     @JvmField var age: Int? = 0
 

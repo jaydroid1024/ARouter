@@ -9,6 +9,12 @@ android {
         minSdkVersion Integer.parseInt(MIN_SDK_VERSION)
         targetSdkVersion Integer.parseInt(TARGET_SDK_VERSION)
         versionName "0.0.1"
+
+        javaCompileOptions {
+            annotationProcessorOptions {
+                arguments = [AROUTER_MODULE_NAME: project.getName(), AROUTER_GENERATE_DOC: "enable"]
+            }
+        }
     }
 
     compileOptions {
@@ -45,6 +51,7 @@ android {
 
 dependencies {
     implementation project(':arouter-api')
+    annotationProcessor project(':arouter-compiler')
 
     // 开发中依赖对方的 service 包
     implementation project(':module-java-export')

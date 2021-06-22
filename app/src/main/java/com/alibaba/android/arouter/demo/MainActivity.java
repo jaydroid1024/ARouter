@@ -78,10 +78,14 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 // Entrance.redirect2Test1Activity("张飞", 48, this);
                 break;
             case R.id.kotlinNavigation:
+//                ARouter.getInstance()
+//                        .build("/kotlin/test")
+//                        .withString("name", "老王")
+//                        .withInt("age", 23)
+//                        .navigation();
+
                 ARouter.getInstance()
-                        .build("/kotlin/test")
-                        .withString("name", "老王")
-                        .withInt("age", 23)
+                        .build("/module/javatest")
                         .navigation();
                 break;
             case R.id.normalNavigationWithParams:

@@ -1,3 +1,4 @@
+
 include ':app'
 include ':arouter-api'
 include ':arouter-compiler'
@@ -7,3 +8,6 @@ include ':module-java-export'
 include ':module-kotlin'
 include ':arouter-gradle-plugin'
 //include ':arouter-idea-plugin'
+
+include ':javapoet' // javapoet 源码组件
+include ':test_java_lib'// 测试组件

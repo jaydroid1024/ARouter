@@ -148,5 +148,15 @@ public class RouteDoc {
         public void setRequired(boolean required) {
             this.required = required;
         }
+
+        @Override
+        public String toString() {
+            return "Param{" +
+                    "key='" + key + '\'' +
+                    ", type='" + type + '\'' +
+                    ", description='" + description + '\'' +
+                    ", required=" + required +
+                    '}';
+        }
     }
 }

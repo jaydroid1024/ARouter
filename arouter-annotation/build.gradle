@@ -1,8 +1,17 @@
 apply plugin: 'java'
 
-java {
-    sourceCompatibility = JavaVersion.VERSION_1_8
-    targetCompatibility = JavaVersion.VERSION_1_8
+ext {
+    bintrayName = 'arouter-annotation'
+    artifact = bintrayName
+    libraryName = 'ARouter annotation'
+    libraryDescription = 'The annotation used in arouter api'
+    libraryVersion = arouter_annotation_version
 }
 
-apply from: rootProject.file('gradle/publish.gradle')
+compileJava {
+    sourceCompatibility = '1.8'
+    targetCompatibility = '1.8'
+}
+
+apply from: '../install.gradle'
+apply from: '../bintray.gradle'

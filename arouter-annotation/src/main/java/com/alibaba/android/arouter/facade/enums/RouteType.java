@@ -43,6 +43,21 @@ public enum RouteType {
         this.className = className;
     }
 
+    /**
+     * RouteType:
+     * <p>
+     * ACTIVITY(0, "android.app.Activity"),
+     * SERVICE(1, "android.app.Service"),
+     * PROVIDER(2, "com.alibaba.android.arouter.facade.template.IProvider"),
+     * CONTENT_PROVIDER(-1, "android.app.ContentProvider"),
+     * BOARDCAST(-1, ""),
+     * METHOD(-1, ""),
+     * FRAGMENT(-1, "android.app.Fragment"),
+     * UNKNOWN(-1, "Unknown route type");
+     *
+     * @param name
+     * @return
+     */
     public static RouteType parse(String name) {
         for (RouteType routeType : RouteType.values()) {
             if (routeType.getClassName().equals(name)) {

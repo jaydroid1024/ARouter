@@ -16,17 +16,16 @@ import javax.lang.model.element.Element;
  * @since 16/8/24 09:45
  */
 public class RouteMeta {
-    private RouteType type;         // Type of route
-    private Element rawType;        // Raw type of route
-    private Class<?> destination;   // Destination
-    private String path;            // Path of route
-    private String group;           // Group of route
+    private RouteType type;         // Type of route 四大组件类型 IProvider等
+    private Element rawType;        // Raw type of route //Router 注解类的元素
+    private Class<?> destination;   // Destination 跳转的目标class
+    private String path;            // Path of route 路由
+    private String group;           // Group of route 路由组
     private int priority = -1;      // The smaller the number, the higher the priority
-    private int extra;              // Extra data
-    private Map<String, Integer> paramsType;  // Param type
-    private String name;
-
-    private Map<String, Autowired> injectConfig;  // Cache inject config.
+    private int extra;              // Extra data 附加数据，表示状态
+    private Map<String, Integer> paramsType;  // Param type intent 携带的参数
+    private String name; //路由描述
+    private Map<String, Autowired> injectConfig;  // Cache inject config. 参数注入的缓存
 
     public RouteMeta() {
     }
